@@ -3,234 +3,199 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Desafio 30 Dias de Hobbies</title>
+  <title>Questionário: Vício em Telas</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     body {
       font-family: Arial, sans-serif;
-      text-align: center;
-      margin: 0;
-      padding: 0;
       background: #f9f9f9;
       color: #333;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+    }
+    .container {
+      display: flex;
+      max-width: 1200px;
+      width: 100%;
+      padding: 20px;
+    }
+    .main {
+      flex: 3;
+      text-align: center;
+    }
+    .legend {
+      flex: 1;
+      margin-left: 20px;
+      background: #fff;
+      border-radius: 10px;
+      padding: 15px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      font-size: 14px;
+      height: fit-content;
     }
     h1 {
       color: #3b82f6;
-      margin-top: 20px;
+      margin: 20px 0;
+    }
+    .question {
+      margin: 15px 0;
+      font-size: 18px;
+    }
+    select {
+      padding: 5px;
+      margin: 5px;
+      border-radius: 5px;
     }
     button {
       background: #3b82f6;
       color: #fff;
       border: none;
       padding: 10px 20px;
-      margin: 10px;
+      margin: 15px;
       border-radius: 20px;
       cursor: pointer;
-      transition: 0.3s;
     }
     button:hover {
       background: #2563eb;
     }
-    .hidden {
-      display: none;
-    }
-    .hobby-list {
-      max-width: 600px;
-      margin: 20px auto;
-      text-align: left;
-    }
-    .hobby-item {
-      margin: 8px 0;
-    }
-    .progress {
+    #chartContainer {
       width: 80%;
-      margin: 20px auto;
-      height: 25px;
-      background: #ddd;
-      border-radius: 20px;
-      overflow: hidden;
+      max-width: 600px;
+      margin: 30px auto;
     }
-    .progress-bar {
-      height: 100%;
-      width: 0;
-      background: #3b82f6;
-      text-align: center;
-      color: #fff;
-      line-height: 25px;
-      transition: width 0.3s;
+    ul {
+      padding-left: 15px;
+      text-align: left;
     }
   </style>
 </head>
 <body>
 
-  <div id="intro">
-    <h1>🎯 Desafio 30 Dias de Hobbies</h1>
-    <p>Você tem 30 dias para realizar 20 hobbies de uma lista com 60 opções.</p>
-    <button onclick="startSelection()">Iniciar seleção</button>
-  </div>
+  <div class="container">
+    <!-- Parte principal -->
+    <div class="main">
+      <h1>📱 Questionário: Vício em Telas</h1>
+      <form id="quizForm">
+        <div class="question">
+          Quanto tempo você passa no celular por dia?  
+          <select name="q1">
+            <option value="1">Menos de 1h</option>
+            <option value="2">1 a 3h</option>
+            <option value="3">3 a 5h</option>
+            <option value="4">5 a 7h</option>
+            <option value="5">Mais de 7h</option>
+          </select>
+        </div>
 
-  <div id="selection" class="hidden">
-    <h2>Escolha 20 hobbies:</h2>
-    <div id="hobbyContainer" class="hobby-list"></div>
-    <button onclick="confirmSelection()">Confirmar seleção</button>
-  </div>
+        <div class="question">
+          Você sente dificuldade em ficar longe do celular?  
+          <select name="q2">
+            <option value="1">Nunca</option>
+            <option value="2">Raramente</option>
+            <option value="3">Às vezes</option>
+            <option value="4">Frequentemente</option>
+            <option value="5">Sempre</option>
+          </select>
+        </div>
 
-  <div id="dashboard" class="hidden">
-    <h2>Seu Desafio</h2>
-    <p id="countdown"></p>
-    <div class="progress">
-      <div id="progressBar" class="progress-bar">0/20</div>
+        <div class="question">
+          Com que frequência você usa estas redes sociais?
+          <br>Instagram:
+          <select name="instagram">
+            <option value="0">Não uso</option>
+            <option value="1">Raramente</option>
+            <option value="2">Às vezes</option>
+            <option value="3">Frequentemente</option>
+            <option value="4">Sempre</option>
+          </select>
+          <br>YouTube:
+          <select name="youtube">
+            <option value="0">Não uso</option>
+            <option value="1">Raramente</option>
+            <option value="2">Às vezes</option>
+            <option value="3">Frequentemente</option>
+            <option value="4">Sempre</option>
+          </select>
+          <br>Spotify:
+          <select name="spotify">
+            <option value="0">Não uso</option>
+            <option value="1">Raramente</option>
+            <option value="2">Às vezes</option>
+            <option value="3">Frequentemente</option>
+            <option value="4">Sempre</option>
+          </select>
+          <br>Twitter:
+          <select name="twitter">
+            <option value="0">Não uso</option>
+            <option value="1">Raramente</option>
+            <option value="2">Às vezes</option>
+            <option value="3">Frequentemente</option>
+            <option value="4">Sempre</option>
+          </select>
+          <br>WhatsApp:
+          <select name="whatsapp">
+            <option value="0">Não uso</option>
+            <option value="1">Raramente</option>
+            <option value="2">Às vezes</option>
+            <option value="3">Frequentemente</option>
+            <option value="4">Sempre</option>
+          </select>
+          <br>TikTok:
+          <select name="tiktok">
+            <option value="0">Não uso</option>
+            <option value="1">Raramente</option>
+            <option value="2">Às vezes</option>
+            <option value="3">Frequentemente</option>
+            <option value="4">Sempre</option>
+          </select>
+        </div>
+
+        <button type="button" onclick="showResults()">Ver Resultado</button>
+      </form>
+
+      <div id="chartContainer" class="hidden">
+        <canvas id="resultChart"></canvas>
+      </div>
     </div>
-    <div id="chosenHobbies" class="hobby-list"></div>
-  </div>
 
-  <div id="result" class="hidden">
-    <h2 id="resultMessage"></h2>
+    <!-- Caixa lateral de legenda -->
+    <div class="legend">
+      <h3>📊 Escala de Respostas</h3>
+      <ul>
+        <li><b>0</b> = Não uso</li>
+        <li><b>1</b> = Raramente</li>
+        <li><b>2</b> = Às vezes</li>
+        <li><b>3</b> = Frequentemente</li>
+        <li><b>4</b> = Sempre</li>
+      </ul>
+    </div>
   </div>
 
   <script>
-    // LISTA DE 60 HOBBIES COM DICAS
-    const HOBBIES = [
-      {name:"Ler um livro", tips:["Escolha um livro curto","Leia 10 páginas por dia","Faça anotações rápidas"]},
-      {name:"Caminhar ao ar livre", tips:["Comece com 20 minutos","Use tênis confortável","Escolha um horário tranquilo"]},
-      {name:"Meditar", tips:["Comece com 5 minutos","Use um app de meditação","Concentre-se na respiração"]},
-      {name:"Desenhar", tips:["Use lápis e papel simples","Desenhe objetos da sua casa","Não se preocupe com perfeição"]},
-      {name:"Cozinhar algo novo", tips:["Escolha uma receita fácil","Separe todos os ingredientes antes","Comece com pratos rápidos"]},
-      {name:"Aprender origami", tips:["Comece com modelos simples","Use papel quadrado","Assista tutoriais curtos"]},
-      {name:"Tocar um instrumento", tips:["Pratique 10 minutos por dia","Aprenda uma música fácil","Grave para acompanhar evolução"]},
-      {name:"Jardinagem", tips:["Plante algo pequeno","Regue com frequência","Observe o crescimento"]},
-      {name:"Escrever um diário", tips:["Escreva 5 minutos por dia","Não se preocupe com erros","Foque em como se sente"]},
-      {name:"Fotografia", tips:["Use a câmera do celular","Brinque com ângulos diferentes","Aproveite a luz natural"]},
-      {name:"Pintura", tips:["Use guache ou aquarela","Escolha cores que gosta","Pinte sem se preocupar com técnica"]},
-      {name:"Yoga", tips:["Siga um vídeo curto","Use tapete ou toalha","Respeite seus limites"]},
-      {name:"Alongamento", tips:["Alongue 10 minutos","Foque na respiração","Não force além do limite"]},
-      {name:"Dança", tips:["Escolha uma música animada","Dance sem regras","Convide alguém pra dançar junto"]},
-      {name:"Esportes coletivos", tips:["Combine com amigos","Jogue de forma recreativa","Alongue antes de começar"]},
-      {name:"Correr", tips:["Comece com caminhada rápida","Use tênis confortável","Progrida devagar"]},
-      {name:"Treino em casa", tips:["Use vídeos do YouTube","Faça 15 minutos","Use peso corporal"]},
-      {name:"Podcasts", tips:["Escolha um tema de interesse","Ouça em momentos livres","Anote algo que aprendeu"]},
-      {name:"Aprender idioma", tips:["Use aplicativos gratuitos","Pratique 10 minutos","Assista vídeos no idioma"]},
-      {name:"Assistir documentário", tips:["Escolha um tema curioso","Anote pontos interessantes","Compartilhe o que aprendeu"]},
-      {name:"Cuidar de um pet", tips:["Brinque com ele","Ensine truques simples","Observe comportamento"]},
-      {name:"Artesanato", tips:["Use materiais recicláveis","Comece pequeno","Pesquise ideias simples"]},
-      {name:"Escrever poesia", tips:["Não se preocupe com rima","Escreva sentimentos","Use metáforas livres"]},
-      {name:"Board games", tips:["Convide amigos ou família","Aprenda regras básicas","Comece com jogos rápidos"]},
-      {name:"Xadrez", tips:["Aprenda movimentos básicos","Jogue online","Resolva desafios curtos"]},
-      {name:"Cubo mágico", tips:["Aprenda um método fácil","Pratique pouco por dia","Cronometre depois"]},
-      {name:"Videogame", tips:["Experimente um jogo novo","Defina tempo limite","Jogue de forma relaxante"]},
-      {name:"Costura", tips:["Comece com pontos básicos","Conserte uma roupa","Use vídeos de tutoriais"]},
-      {name:"Crochê", tips:["Aprenda ponto corrente","Pratique alguns minutos","Faça algo pequeno"]},
-      {name:"Bordado", tips:["Use desenhos simples","Comece pequeno","Escolha cores vibrantes"]},
-      {name:"Caminhada urbana", tips:["Explore sua cidade","Observe arquitetura","Fotografe pontos legais"]},
-      {name:"Explorar música nova", tips:["Use Spotify ou YouTube","Crie playlist temática","Compartilhe com amigos"]},
-      {name:"Tocar percussão", tips:["Use objetos de casa","Siga batidas simples","Acompanhe uma música"]},
-      {name:"Karaokê", tips:["Escolha músicas conhecidas","Cante sem se preocupar","Convide alguém"]},
-      {name:"Assistir teatro online", tips:["Pesquise peças gratuitas","Reserve 1 hora","Anote reflexões"]},
-      {name:"Piquenique", tips:["Prepare lanches simples","Escolha parque próximo","Leve música ou livro"]},
-      {name:"Ciclismo", tips:["Use capacete","Comece com trajetos curtos","Leve água"]},
-      {name:"Patins ou skate", tips:["Use proteção","Treine em local seguro","Comece devagar"]},
-      {name:"Voluntariado", tips:["Pesquise projetos locais","Doe 1h do seu tempo","Apoie causas que gosta"]},
-      {name:"Caminhar ouvindo música", tips:["Escolha playlist animada","Caminhe sem pressa","Respire fundo"]},
-      {name:"Escrever cartas", tips:["Escreva para alguém especial","Use papel simples","Fale de lembranças boas"]},
-      {name:"Praticar gratidão", tips:["Liste 3 coisas por dia","Escreva no diário","Compartilhe com alguém"]},
-      {name:"Desenhar quadrinhos", tips:["Use tirinhas simples","Crie personagens rápidos","Não foque em perfeição"]},
-      {name:"Analisar sonhos", tips:["Anote ao acordar","Tente interpretar símbolos","Compare ao longo do tempo"]},
-      {name:"Cuidar da casa", tips:["Organize um cômodo pequeno","Doe algo que não usa","Limpe ouvindo música"]},
-      {name:"Fotografia da natureza", tips:["Vá a um parque","Fotografe plantas","Observe detalhes"]},
-      {name:"Estudo rápido", tips:["Leia artigo curto","Faça resumo simples","Compartilhe o que aprendeu"]},
-      {name:"Podcast pessoal", tips:["Grave no celular","Fale sobre seu dia","Compartilhe se quiser"]},
-      {name:"Mindfulness", tips:["Observe o presente","Respire fundo","Use app guia"]},
-      {name:"Colecionar algo", tips:["Escolha tema fácil","Guarde com cuidado","Pesquise online"]},
-      {name:"Cuidar da saúde", tips:["Beba 2L de água","Durma 8h","Evite celular antes de dormir"]},
-      {name:"Aprender finanças pessoais", tips:["Assista vídeo curto","Anote gastos","Estabeleça meta simples"]},
-      {name:"Criar playlist", tips:["Escolha músicas favoritas","Separe por humor","Compartilhe"]},
-      {name:"Assistir filmes clássicos", tips:["Escolha um famoso","Veja em boa qualidade","Pesquise contexto histórico"]},
-      {name:"Esportes radicais (leve)", tips:["Pesquise atividades seguras","Comece com supervisão","Respeite limites"]},
-      {name:"Astronomia", tips:["Observe o céu noturno","Baixe app de estrelas","Aprenda constelações"]},
-      {name:"Experiência científica simples", tips:["Use materiais de casa","Siga tutoriais online","Anote resultados"]},
-      {name:"Blog pessoal", tips:["Escreva no Medium ou Notion","Compartilhe pensamentos","Use imagens livres"]},
-      {name:"Mapa de sonhos", tips:["Use imagens de revistas","Cole em cartolina","Defina objetivos"]},
-      {name:"Aprender caligrafia", tips:["Treine letras no caderno","Use caneta simples","Pratique 10 minutos"]},
-    ];
+    function showResults() {
+      const form = document.getElementById("quizForm");
+      const data = new FormData(form);
 
-    // ----- SISTEMA -----
-    let selectedHobbies = [];
-    let completed = 0;
-    let deadline = null;
+      const apps = ["instagram", "youtube", "spotify", "twitter", "whatsapp", "tiktok"];
+      const values = apps.map(app => parseInt(data.get(app)));
 
-    function startSelection() {
-      document.getElementById('intro').classList.add('hidden');
-      document.getElementById('selection').classList.remove('hidden');
+      const ctx = document.getElementById("resultChart").getContext("2d");
+      document.getElementById("chartContainer").classList.remove("hidden");
 
-      const container = document.getElementById('hobbyContainer');
-      container.innerHTML = "";
-      HOBBIES.forEach((hobby, index) => {
-        const div = document.createElement('div');
-        div.className = "hobby-item";
-        div.innerHTML = `<input type="checkbox" id="hobby${index}" value="${index}">
-                         <label for="hobby${index}">${hobby.name}</label>`;
-        container.appendChild(div);
+      new Chart(ctx, {
+        type: "pie",
+        data: {
+          labels: ["Instagram", "YouTube", "Spotify", "Twitter", "WhatsApp", "TikTok"],
+          datasets: [{
+            data: values,
+            backgroundColor: ["#E1306C","#FF0000","#1DB954","#1DA1F2","#25D366","#010101"]
+          }]
+        }
       });
-    }
-
-    function confirmSelection() {
-      const checkboxes = document.querySelectorAll('#hobbyContainer input:checked');
-      if (checkboxes.length !== 20) {
-        alert("Você deve escolher exatamente 20 hobbies!");
-        return;
-      }
-      selectedHobbies = Array.from(checkboxes).map(c => HOBBIES[c.value]);
-      deadline = new Date();
-      deadline.setDate(deadline.getDate() + 30);
-
-      document.getElementById('selection').classList.add('hidden');
-      document.getElementById('dashboard').classList.remove('hidden');
-
-      renderDashboard();
-      updateCountdown();
-      setInterval(updateCountdown, 1000);
-    }
-
-    function renderDashboard() {
-      const container = document.getElementById('chosenHobbies');
-      container.innerHTML = "";
-      selectedHobbies.forEach((hobby, i) => {
-        const div = document.createElement('div');
-        div.className = "hobby-item";
-        div.innerHTML = `<strong>${hobby.name}</strong><br>
-                         💡 Dicas: ${hobby.tips.join(", ")}<br>
-                         <button onclick="markDone(${i})">Concluído ✅</button>`;
-        container.appendChild(div);
-      });
-    }
-
-    function markDone(index) {
-      completed++;
-      document.getElementById('progressBar').style.width = (completed/20*100)+"%";
-      document.getElementById('progressBar').innerText = `${completed}/20`;
-      if (completed === 20) finishChallenge(true);
-    }
-
-    function updateCountdown() {
-      const now = new Date();
-      const diff = deadline - now;
-      if (diff <= 0) {
-        finishChallenge(false);
-        return;
-      }
-      const days = Math.floor(diff/(1000*60*60*24));
-      const hours = Math.floor((diff/(1000*60*60))%24);
-      const mins = Math.floor((diff/(1000*60))%60);
-      document.getElementById('countdown').innerText =
-        `Tempo restante: ${days}d ${hours}h ${mins}m`;
-    }
-
-    function finishChallenge(success) {
-      document.getElementById('dashboard').classList.add('hidden');
-      document.getElementById('result').classList.remove('hidden');
-      document.getElementById('resultMessage').innerText =
-        success ? "🎉 Parabéns! Você concluiu os 20 hobbies!" :
-        `Desafio encerrado! Você concluiu ${completed}/20 hobbies.`;
     }
   </script>
+
 </body>
 </html>
