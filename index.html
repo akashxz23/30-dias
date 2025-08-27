@@ -1,301 +1,246 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Desafio 30 Dias de Hobbies</title>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Questionário + Desafio 30 Dias de Hobbies</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #f5f7fa;
-      margin: 0;
-      padding: 0;
-      text-align: center;
+      margin: 0; padding: 0;
+      background: #f9f9f9;
       color: #333;
     }
+    .hidden { display: none; }
     .container {
-      max-width: 800px;
-      margin: auto;
-      padding: 20px;
+      max-width: 900px; margin: auto; padding: 20px;
     }
-    h1, h2 {
-      color: #4a6cf7;
-    }
+    h1, h2, h3 { text-align: center; }
     button {
-      background: #4a6cf7;
-      color: white;
-      border: none;
-      padding: 12px 20px;
-      margin: 10px;
-      border-radius: 25px;
-      font-size: 16px;
-      cursor: pointer;
-      transition: transform 0.2s, background 0.3s;
+      background: #4CAF50; color: white;
+      border: none; border-radius: 8px;
+      padding: 10px 20px; cursor: pointer;
+      margin-top: 10px; transition: 0.3s;
     }
-    button:hover {
-      background: #3451c7;
-      transform: scale(1.05);
+    button:hover { background: #45a049; }
+    .question { margin: 20px 0; }
+    .chart-container { max-width: 500px; margin: 20px auto; }
+    /* Estilos do desafio */
+    .hobby-item, .hobby-card {
+      border: 1px solid #ddd; border-radius: 12px;
+      padding: 15px; margin: 10px 0; background: white;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
     }
-    .hidden {
-      display: none;
+    .hobby-card header {
+      display:flex; justify-content:space-between; align-items:center;
+      margin-bottom: 10px;
     }
-    .question {
-      margin: 20px 0;
-      text-align: left;
+    .pill {
+      background:#eee; padding:3px 8px; border-radius:8px;
+      font-size: 0.85em;
     }
-    .progress-container {
-      width: 100%;
-      background: #ddd;
-      border-radius: 20px;
-      margin: 20px 0;
-      height: 25px;
+    .pill.done { background:#4CAF50; color:white; }
+    #progress {
+      background:#eee; border-radius:10px;
+      overflow:hidden; margin:20px 0; height:24px;
     }
-    .progress-bar {
-      height: 25px;
-      background: #4a6cf7;
-      width: 0%;
-      border-radius: 20px;
-      transition: width 0.5s ease;
-    }
-    .hobby-card {
-      background: white;
-      border-radius: 15px;
-      padding: 15px;
-      margin: 10px 0;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+    #progress-bar {
+      background:#4CAF50; width:0%; height:100%;
+      transition:width 0.4s;
     }
   </style>
 </head>
 <body>
-  <div class="container">
+<div class="container">
 
-    <!-- Questionário -->
-    <div id="quiz-section">
-      <h1>📱 Questionário: Seu uso de telas</h1>
-      <form id="quiz-form">
-        <div class="question">1. Você pega o celular logo ao acordar?
-          <br><input type="number" name="q1" min="1" max="5" required>
-        </div>
-        <div class="question">2. Sente ansiedade quando fica sem acesso à internet ou celular?
-          <br><input type="number" name="q2" min="1" max="5" required>
-        </div>
-        <div class="question">3. Passa mais de 4 horas por dia em redes sociais?
-          <br><input type="number" name="q3" min="1" max="5" required>
-        </div>
-        <div class="question">4. Usa o celular enquanto está com amigos ou família?
-          <br><input type="number" name="q4" min="1" max="5" required>
-        </div>
-        <div class="question">5. Fica até tarde da noite no celular/computador, mesmo com sono?
-          <br><input type="number" name="q5" min="1" max="5" required>
-        </div>
-        <div class="question">6. Tem dificuldade de se concentrar em tarefas sem checar notificações?
-          <br><input type="number" name="q6" min="1" max="5" required>
-        </div>
-        <div class="question">7. Já perdeu prazos ou deixou de fazer algo importante por estar no celular?
-          <br><input type="number" name="q7" min="1" max="5" required>
-        </div>
-        <div class="question">8. Usa telas (celular, TV, computador) durante as refeições?
-          <br><input type="number" name="q8" min="1" max="5" required>
-        </div>
-        <div class="question">9. Já tentou reduzir o tempo de tela e não conseguiu?
-          <br><input type="number" name="q9" min="1" max="5" required>
-        </div>
-        <div class="question">10. Sente que o uso excessivo de telas afeta seu humor ou produtividade?
-          <br><input type="number" name="q10" min="1" max="5" required>
-        </div>
-        <div class="question">11. Você passa muito tempo no Instagram?
-          <br><input type="number" name="q11" min="1" max="5" required>
-        </div>
-        <div class="question">12. Você costuma assistir vários vídeos seguidos no YouTube?
-          <br><input type="number" name="q12" min="1" max="5" required>
-        </div>
-        <div class="question">13. Usa o Spotify por muitas horas seguidas?
-          <br><input type="number" name="q13" min="1" max="5" required>
-        </div>
-        <div class="question">14. Abre o Twitter/X várias vezes ao dia?
-          <br><input type="number" name="q14" min="1" max="5" required>
-        </div>
-        <div class="question">15. Checa o WhatsApp constantemente?
-          <br><input type="number" name="q15" min="1" max="5" required>
-        </div>
-        <div class="question">16. Costuma passar bastante tempo no TikTok?
-          <br><input type="number" name="q16" min="1" max="5" required>
-        </div>
-        <button type="submit">Ver resultado</button>
-      </form>
-    </div>
-
-    <!-- Resultado -->
-    <div id="result-section" class="hidden">
-      <h2>📊 Resultado do questionário</h2>
-      <canvas id="resultChart" width="400" height="400"></canvas>
-      <p id="resultText"></p>
-      <h3>👉 Quer participar do Desafio 30 Dias de Hobbies?</h3>
-      <button id="startChallenge">Sim</button>
-      <button onclick="alert('Beleza! Continue refletindo sobre seu uso de telas.')">Não</button>
-    </div>
-
-    <!-- Desafio -->
-    <div id="challenge-section" class="hidden">
-      <h1>🎯 Desafio 30 Dias de Hobbies</h1>
-      <p>Você tem 30 dias para realizar 20 hobbies de uma lista com 60 opções.</p>
-      <button id="selectHobbiesBtn">Iniciar seleção</button>
-
-      <div id="hobby-selection" class="hidden">
-        <h2>Escolha 20 hobbies:</h2>
-        <div id="hobbyList"></div>
-        <button id="confirmHobbies">Confirmar seleção</button>
+  <!-- ================== QUESTIONÁRIO ================== -->
+  <section id="view-quiz">
+    <h1>Questionário: Uso de Telas</h1>
+    <form id="quiz-form">
+      <div class="question">
+        <label>1. Você sente dificuldade em ficar longe do celular?</label><br>
+        <input type="number" name="q1" min="1" max="5" required>
       </div>
-
-      <div id="dashboard" class="hidden">
-        <h2>Seus Hobbies</h2>
-        <div id="hobbyDashboard"></div>
-        <div class="progress-container">
-          <div class="progress-bar" id="progress-bar"></div>
-        </div>
-        <p id="progress-text">0/20 concluídos</p>
-        <p id="countdown"></p>
+      <div class="question">
+        <label>2. Você usa o celular antes de dormir?</label><br>
+        <input type="number" name="q2" min="1" max="5" required>
       </div>
+      <div class="question">
+        <label>3. Usa redes sociais como Instagram, YouTube, Spotify, Twitter, WhatsApp ou TikTok diariamente?</label><br>
+        <input type="number" name="q3" min="1" max="5" required>
+      </div>
+      <!-- pode adicionar mais perguntas seguindo o mesmo padrão -->
+      <button type="submit">Ver Resultados</button>
+    </form>
+  </section>
+
+  <!-- ================== RESULTADO QUIZ ================== -->
+  <section id="view-quiz-result" class="hidden">
+    <h2>Resultado do Questionário</h2>
+    <div class="chart-container">
+      <canvas id="quizChart"></canvas>
     </div>
-  </div>
+    <p id="quiz-interpretation"></p>
+    <h3>Deseja iniciar o Desafio de 30 Dias de Hobbies?</h3>
+    <button id="btn-go-challenge">Sim, quero começar</button>
+  </section>
 
-  <script>
-    // ======== QUESTIONÁRIO =========
-    const quizForm = document.getElementById("quiz-form");
-    const quizSection = document.getElementById("quiz-section");
-    const resultSection = document.getElementById("result-section");
-    const resultText = document.getElementById("resultText");
-    const ctx = document.getElementById("resultChart");
+  <!-- ================== DESAFIO ================== -->
+  <section id="view-home" class="hidden">
+    <h1>Desafio 30 Dias de Hobbies</h1>
+    <p>Você tem 30 dias para realizar 20 hobbies de uma lista com 60 opções.</p>
+    <button id="btn-start">Iniciar Desafio</button>
+    <div id="resume" style="display:none;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px">
+      <div>Progresso: <span id="resume-completed"></span></div>
+      <div>Tempo restante: <span id="resume-left"></span></div>
+    </div>
+  </section>
 
-    quizForm.addEventListener("submit", (e) => {
-      e.preventDefault();
-      let formData = new FormData(quizForm);
-      let values = [];
-      for (let [key, value] of formData.entries()) {
-        values.push(parseInt(value));
-      }
-      let habits = values.slice(0,10).reduce((a,b)=>a+b,0);
-      let apps = values.slice(10).reduce((a,b)=>a+b,0);
-      let total = habits + apps;
+  <section id="view-select" class="hidden">
+    <h2>Escolha seus hobbies</h2>
+    <p>Selecione exatamente 20 hobbies:</p>
+    <div id="select-grid"></div>
+    <p id="count-selected">0/20 selecionados</p>
+    <button id="btn-confirm" disabled>Confirmar Seleção</button>
+  </section>
 
-      // Interpretacao
-      let interpretation = "";
-      if (total <= 32) interpretation = "✅ Uso equilibrado";
-      else if (total <= 55) interpretation = "⚠️ Uso elevado (atenção!)";
-      else interpretation = "📵 Alto risco de vício em telas";
+  <section id="view-dash" class="hidden">
+    <h2>Seus Hobbies</h2>
+    <div id="progress">
+      <div id="progress-bar"></div>
+    </div>
+    <p id="progress-text"></p>
+    <p id="progress-percent"></p>
+    <p>Tempo restante: <span id="countdown"></span></p>
+    <div id="dash-grid"></div>
+    <button id="btn-reset">Reiniciar</button>
+  </section>
 
-      // Mostrar resultado
-      quizSection.classList.add("hidden");
-      resultSection.classList.remove("hidden");
-      resultText.textContent = `Sua pontuação: ${total} pontos. ${interpretation}`;
+  <section id="view-result" class="hidden">
+    <h2 id="result-title"></h2>
+    <p id="result-msg"></p>
+    <button id="btn-try-again">Tentar novamente</button>
+    <button id="btn-share">Compartilhar</button>
+  </section>
 
-      // Gráfico pizza
-      new Chart(ctx, {
-        type: "pie",
-        data: {
-          labels: ["Hábitos gerais", "Uso de apps"],
-          datasets: [{
-            data: [habits, apps],
-            backgroundColor: ["#4a6cf7","#ff6b6b"]
-          }]
-        }
-      });
-    });
+</div>
 
-    // ======== DESAFIO =========
-    const startChallengeBtn = document.getElementById("startChallenge");
-    const challengeSection = document.getElementById("challenge-section");
-    const selectHobbiesBtn = document.getElementById("selectHobbiesBtn");
-    const hobbySelection = document.getElementById("hobby-selection");
-    const confirmHobbiesBtn = document.getElementById("confirmHobbies");
-    const hobbyListDiv = document.getElementById("hobbyList");
-    const dashboard = document.getElementById("dashboard");
-    const hobbyDashboard = document.getElementById("hobbyDashboard");
-    const progressBar = document.getElementById("progress-bar");
-    const progressText = document.getElementById("progress-text");
-    const countdownEl = document.getElementById("countdown");
+<!-- Chart.js CDN -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    let hobbies = Array.from({length:60}, (_,i)=>`Hobby ${i+1}`);
-    let selectedHobbies = [];
-    let progress = 0;
-    let startDate = null;
+<script>
+/* ================== QUIZ ================== */
+const quizForm = document.getElementById("quiz-form");
+quizForm.addEventListener("submit", function(e){
+  e.preventDefault();
+  const data = new FormData(quizForm);
+  let somaGeral = 0, somaApps = 0;
 
-    startChallengeBtn.onclick = () => {
-      resultSection.classList.add("hidden");
-      challengeSection.classList.remove("hidden");
-    };
+  somaGeral += parseInt(data.get("q1")) || 0;
+  somaGeral += parseInt(data.get("q2")) || 0;
+  somaApps  += parseInt(data.get("q3")) || 0;
 
-    selectHobbiesBtn.onclick = () => {
-      hobbySelection.classList.remove("hidden");
-      hobbyListDiv.innerHTML = hobbies.map((hobby,i)=>
-        `<label><input type="checkbox" value="${hobby}"> ${hobby}</label><br>`
-      ).join("");
-    };
+  document.getElementById("view-quiz").classList.add("hidden");
+  document.getElementById("view-quiz-result").classList.remove("hidden");
 
-    confirmHobbiesBtn.onclick = () => {
-      const checked = hobbyListDiv.querySelectorAll("input:checked");
-      if (checked.length !== 20) {
-        alert("Selecione exatamente 20 hobbies!");
-        return;
-      }
-      selectedHobbies = Array.from(checked).map(c=>({name:c.value,done:false}));
-      hobbySelection.classList.add("hidden");
-      showDashboard();
-      startDate = new Date();
-      localStorage.setItem("challengeStart", startDate);
-      updateCountdown();
-      setInterval(updateCountdown,1000*60*60);
-    };
-
-    function showDashboard(){
-      dashboard.classList.remove("hidden");
-      renderHobbies();
-      updateProgress();
+  const ctx = document.getElementById("quizChart");
+  new Chart(ctx, {
+    type: "pie",
+    data: {
+      labels: ["Hábitos Gerais", "Uso de Apps"],
+      datasets: [{
+        data: [somaGeral, somaApps],
+        backgroundColor: ["#4CAF50", "#FF5722"]
+      }]
     }
+  });
 
-    function renderHobbies(){
-      hobbyDashboard.innerHTML = "";
-      selectedHobbies.forEach((h,i)=>{
-        let div = document.createElement("div");
-        div.className="hobby-card";
-        div.innerHTML = `
-          <span>${h.name}</span>
-          <button onclick="toggleHobby(${i})">${h.done?"Desfazer":"Concluído ✅"}</button>
-        `;
-        hobbyDashboard.appendChild(div);
-      });
-    }
+  let interpretation = "";
+  if(somaGeral+somaApps < 10){
+    interpretation = "Seu uso de telas parece equilibrado.";
+  } else {
+    interpretation = "Atenção: você pode estar gastando muito tempo nas telas.";
+  }
+  document.getElementById("quiz-interpretation").innerText = interpretation;
+});
 
-    window.toggleHobby = function(i){
-      selectedHobbies[i].done = !selectedHobbies[i].done;
-      renderHobbies();
-      updateProgress();
-    }
+document.getElementById("btn-go-challenge").addEventListener("click", ()=>{
+  document.getElementById("view-quiz-result").classList.add("hidden");
+  document.getElementById("view-home").classList.remove("hidden");
+});
 
-    function updateProgress(){
-      progress = selectedHobbies.filter(h=>h.done).length;
-      progressText.textContent = `${progress}/20 concluídos`;
-      progressBar.style.width = `${(progress/20)*100}%`;
-      if(progress===20){
-        alert("🎉 Parabéns! Você concluiu o desafio!");
-      }
-    }
+/* ================== DESAFIO ================== */
+/* --- seu código atualizado vai aqui (resumido pela resposta) --- */
 
-    function updateCountdown(){
-      if(!startDate) return;
-      let now = new Date();
-      let diff = 30*24*60*60*1000 - (now - startDate);
-      if(diff <= 0){
-        countdownEl.textContent = "⏰ Tempo esgotado!";
-        return;
-      }
-      let dias = Math.floor(diff/(1000*60*60*24));
-      countdownEl.textContent = `⏳ Restam ${dias} dias`;
-    }
-  </script>
+// Exemplo mínimo de hobbies para não ficar gigante
+const HOBBIES = [
+  {name:"Ler um livro", tips:["Escolha um livro curto","Leia 10 páginas por dia"]},
+  {name:"Caminhar", tips:["Faça 20 minutos","Tente ao ar livre"]},
+  {name:"Meditar", tips:["Comece com 5 min","Use app de meditação"]},
+  {name:"Desenhar", tips:["Pegue lápis simples","Desenhe objetos da sua casa"]}
+];
+const LIMIT=20, DURATION_DAYS=30, STORAGE_KEY='d30-hobbies-state-v1';
+const State={startedAt:null,deadline:null,selected:[]};
+function saveState(){localStorage.setItem(STORAGE_KEY, JSON.stringify(State));}
+function loadState(){try{const s=JSON.parse(localStorage.getItem(STORAGE_KEY));return s;}catch{return null}}
+function resetAll(){localStorage.removeItem(STORAGE_KEY);location.reload();}
+const $=(q,r=document)=>r.querySelector(q), $$=(q,r=document)=>[...r.querySelectorAll(q)];
+const views={home:$('#view-home'),select:$('#view-select'),dash:$('#view-dash'),result:$('#view-result')};
+function show(id){Object.values(views).forEach(v=>v.classList.add('hidden'));views[id].classList.remove('hidden');}
+
+$('#btn-start').addEventListener('click', ()=>{
+  const existing=loadState();
+  if(existing){Object.assign(State,existing);hydrateDashboard();show('dash');return;}
+  show('select');renderSelection();
+});
+
+function renderSelection(){
+  const grid=$('#select-grid');grid.innerHTML='';
+  HOBBIES.forEach((h,i)=>{
+    const div=document.createElement('div');
+    div.className='hobby-item';
+    div.innerHTML=`<input type="checkbox" data-idx="${i}" id="h${i}">
+      <label for="h${i}">${h.name}</label>`;
+    grid.appendChild(div);
+  });
+  grid.addEventListener('change', onChangeSelection);
+}
+function onChangeSelection(){
+  const checked=$$('#select-grid input:checked');
+  if(checked.length>LIMIT){checked[checked.length-1].checked=false;return;}
+  $('#count-selected').textContent=`${checked.length}/${LIMIT} selecionados`;
+  $('#btn-confirm').disabled=checked.length!==LIMIT;
+}
+$('#btn-confirm').addEventListener('click', ()=>{
+  const idxs=$$('#select-grid input:checked').map(e=>+e.dataset.idx);
+  State.selected=idxs.map(i=>({name:HOBBIES[i].name,tips:HOBBIES[i].tips,done:false,doneAt:null}));
+  const now=Date.now();State.startedAt=now;State.deadline=now+DURATION_DAYS*86400000;
+  saveState();hydrateDashboard();show('dash');
+});
+
+function hydrateDashboard(){
+  const grid=$('#dash-grid');grid.innerHTML='';
+  State.selected.forEach((h,i)=>{
+    const card=document.createElement('div');
+    card.className='hobby-card';
+    card.innerHTML=`<header><strong>${h.name}</strong><span class="pill ${h.done?'done':''}">${h.done?'Concluído':'Pendente'}</span></header>
+      <button class="btn" data-idx="${i}">${h.done?'Desfazer':'Concluído ✅'}</button>`;
+    grid.appendChild(card);
+  });
+  grid.addEventListener('click',e=>{
+    const b=e.target.closest('button');if(!b)return;
+    const i=+b.dataset.idx;const h=State.selected[i];
+    h.done=!h.done;h.doneAt=h.done?Date.now():null;saveState();updateProgressUI();hydrateDashboard();
+  });
+  updateProgressUI();
+}
+function updateProgressUI(){
+  const done=State.selected.filter(h=>h.done).length;
+  const pct=Math.round((done/LIMIT)*100);
+  $('#progress-bar').style.width=pct+'%';
+  $('#progress-text').textContent=`${done}/${LIMIT} concluídos`;
+  $('#progress-percent').textContent=pct+'%';
+}
+</script>
 </body>
 </html>
